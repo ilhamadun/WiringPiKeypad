@@ -30,6 +30,12 @@
 #include <wiringPi.h>
 #include <thread>
 
+struct key
+{
+	int row;
+	int column;
+};
+
 class Keypad
 {
 protected:
@@ -37,13 +43,12 @@ protected:
 	int columnSize;
 	int *rowPin;
 	int *columnPin;
-	void polling(void);
 
 public:
 	Keypad(int _rowSize, int _columnSize);
 	void setRowPin(int *row);
 	void setColumnPin(int *column);
-	void begin(void);
+	struct key getKey(void);
 	void printDetails(void);
 };
 

@@ -47,8 +47,10 @@ void Keypad::setColumnPin(int *column)
 	}
 }
 
-void Keypad::begin(void)
+struct key Keypad::getKey(void)
 {
+	struct key k;
+
 	for (int i = 0; i < columnSize; i++)
 	{
 		pinMode(columnPin[i], INPUT);
@@ -61,13 +63,6 @@ void Keypad::begin(void)
 		pullUpDnControl(rowPin[i], PUD_OFF);
 	}
 
-	std::thread t(&Keypad::polling, this);
-
-	t.join();
-}
-
-void Keypad::polling(void)
-{
 	while (1)
 	{
 		for (int i = 0; i < rowSize; i++)
@@ -80,7 +75,10 @@ void Keypad::polling(void)
 				if (! digitalRead(columnPin[j]))
 				{
 					delay(200);
-					std::cout << "Row: " << i << " Column: " << j << std::endl;
+					k.row = i;
+					k.column = j;
+
+					return k;
 				}
 			}
 
