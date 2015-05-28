@@ -25,12 +25,20 @@
 
 #include "WiringPiKeypad.h"
 
+/**
+ * Class constructor
+ */
 Keypad::Keypad(int _rowSize, int _columnSize): rowSize(_rowSize), columnSize(_columnSize)
 {
 	rowPin = (int *) malloc(sizeof(int) * rowSize);
 	columnPin = (int *) malloc(sizeof(int) * columnSize);
 }
 
+/**
+ * Set row pin
+ * 
+ * @param 	row 	array with rowSize elements
+ */
 void Keypad::setRowPin(int *row)
 {
 	for (int i = 0; i < rowSize; i++)
@@ -39,6 +47,11 @@ void Keypad::setRowPin(int *row)
 	}
 }
 
+/**
+ * Set column pin
+ * 
+ * @param 	column 	array with columnSize elements
+ */
 void Keypad::setColumnPin(int *column)
 {
 	for (int i = 0; i < columnSize; i++)
@@ -47,6 +60,11 @@ void Keypad::setColumnPin(int *column)
 	}
 }
 
+/**
+ * Listen to keypress
+ * 
+ * @return  key structure
+ */
 struct key Keypad::getKey(void)
 {
 	struct key k;
@@ -90,6 +108,9 @@ struct key Keypad::getKey(void)
 	}
 }
 
+/**
+ * Print setup details
+ */
 void Keypad::printDetails(void)
 {
 	std::cout << "Row size:\t" << rowSize << std::endl;
