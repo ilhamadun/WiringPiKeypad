@@ -1,5 +1,5 @@
 /**
- * WiringPi Keypad Matrix Library
+ * WiringPi Matrix Keypad Library
  *
  * Copyright (c) 2015 Ilham Imaduddin <ilham.imaduddin@mail.ugm.ac.id>
  *
@@ -35,7 +35,7 @@ struct key
 	int column;
 };
 
-class Keypad
+class WiringPiKeypad
 {
 protected:
 	int rowSize;
@@ -46,8 +46,8 @@ protected:
 	int pollingDelay;
 
 public:
-	Keypad(int _rowSize, int _columnSize);
-	Keypad(int _rowSize, int _columnSize, int debounceDelay, int pollingDelay);
+	WiringPiKeypad(int _rowSize, int _columnSize);
+	WiringPiKeypad(int _rowSize, int _columnSize, int debounceDelay, int pollingDelay);
 	void setRowPin(int *row);
 	void setColumnPin(int *column);
 	void setDebounceDelay(int delay);

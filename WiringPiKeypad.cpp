@@ -1,5 +1,5 @@
 /**
- * WiringPi Keypad Matrix Library
+ * WiringPi Matrix Keypad Library
  *
  * Copyright (c) 2015 Ilham Imaduddin <ilham.imaduddin@mail.ugm.ac.id>
  *
@@ -28,7 +28,7 @@
 /**
  * Class constructor
  */
-Keypad::Keypad(int _rowSize, int _columnSize)
+WiringPiKeypad::WiringPiKeypad(int _rowSize, int _columnSize)
 : rowSize(_rowSize), columnSize(_columnSize), debounceDelay(200), pollingDelay(20)
 {
 	rowPin = (int *) malloc(sizeof(int) * rowSize);
@@ -38,7 +38,7 @@ Keypad::Keypad(int _rowSize, int _columnSize)
 /**
  * Class constructor
  */
-Keypad::Keypad(int _rowSize, int _columnSize, int _debounce, int _polling)
+WiringPiKeypad::WiringPiKeypad(int _rowSize, int _columnSize, int _debounce, int _polling)
 : rowSize(_rowSize), columnSize(_columnSize), debounceDelay(_debounce), pollingDelay(_polling)
 {
 	rowPin = (int *) malloc(sizeof(int) * rowSize);
@@ -50,7 +50,7 @@ Keypad::Keypad(int _rowSize, int _columnSize, int _debounce, int _polling)
  * 
  * @param 	row 	array with rowSize elements
  */
-void Keypad::setRowPin(int *row)
+void WiringPiKeypad::setRowPin(int *row)
 {
 	for (int i = 0; i < rowSize; i++)
 	{
@@ -63,7 +63,7 @@ void Keypad::setRowPin(int *row)
  * 
  * @param 	column 	array with columnSize elements
  */
-void Keypad::setColumnPin(int *column)
+void WiringPiKeypad::setColumnPin(int *column)
 {
 	for (int i = 0; i < columnSize; i++)
 	{
@@ -76,7 +76,7 @@ void Keypad::setColumnPin(int *column)
  * 
  * @param delay 	delay in miliseconds
  */
-void Keypad::setDebounceDelay(int delay)
+void WiringPiKeypad::setDebounceDelay(int delay)
 {
 	debounceDelay = delay;
 }
@@ -86,7 +86,7 @@ void Keypad::setDebounceDelay(int delay)
  * 
  * @param delay 	delay in miliseconds
  */
-void Keypad::setPollingDelay(int delay)
+void WiringPiKeypad::setPollingDelay(int delay)
 {
 	pollingDelay = delay;
 }
@@ -96,7 +96,7 @@ void Keypad::setPollingDelay(int delay)
  * 
  * @return  delay in miliseconds
  */
-int Keypad::getDebounceDelay(void)
+int WiringPiKeypad::getDebounceDelay(void)
 {
 	return debounceDelay;
 }
@@ -106,7 +106,7 @@ int Keypad::getDebounceDelay(void)
  * 
  * @return  delay in miliseconds
  */
-int Keypad::getPollingDelay(void)
+int WiringPiKeypad::getPollingDelay(void)
 {
 	return pollingDelay;
 }
@@ -116,7 +116,7 @@ int Keypad::getPollingDelay(void)
  * 
  * @return  key structure
  */
-struct key Keypad::getKey(void)
+struct key WiringPiKeypad::getKey(void)
 {
 	struct key k;
 
@@ -162,7 +162,7 @@ struct key Keypad::getKey(void)
 /**
  * Print setup details
  */
-void Keypad::printDetails(void)
+void WiringPiKeypad::printDetails(void)
 {
 	std::cout << "Row size:\t" << rowSize << std::endl;
 	std::cout << "Column size:\t" << rowSize << std::endl;
