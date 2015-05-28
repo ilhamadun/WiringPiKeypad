@@ -28,7 +28,18 @@
 /**
  * Class constructor
  */
-Keypad::Keypad(int _rowSize, int _columnSize): rowSize(_rowSize), columnSize(_columnSize)
+Keypad::Keypad(int _rowSize, int _columnSize)
+: rowSize(_rowSize), columnSize(_columnSize), debounceDelay(200), pollingDelay(20)
+{
+	rowPin = (int *) malloc(sizeof(int) * rowSize);
+	columnPin = (int *) malloc(sizeof(int) * columnSize);
+}
+
+/**
+ * Class constructor
+ */
+Keypad::Keypad(int _rowSize, int _columnSize, int _debounce, int _polling)
+: rowSize(_rowSize), columnSize(_columnSize), debounceDelay(_debounce), pollingDelay(_polling)
 {
 	rowPin = (int *) malloc(sizeof(int) * rowSize);
 	columnPin = (int *) malloc(sizeof(int) * columnSize);
@@ -58,6 +69,46 @@ void Keypad::setColumnPin(int *column)
 	{
 		columnPin[i] = column[i];
 	}
+}
+
+/**
+ * Set debounce delay
+ * 
+ * @param delay 	delay in miliseconds
+ */
+void Keypad::setDebounceDelay(int delay)
+{
+	debounceDelay = delay;
+}
+
+/**
+ * Set polling delay
+ * 
+ * @param delay 	delay in miliseconds
+ */
+void Keypad::setPollingDelay(int delay)
+{
+	pollingDelay = delay;
+}
+
+/**
+ * Get debounce delay
+ * 
+ * @return  delay in miliseconds
+ */
+int Keypad::getDebounceDelay(void)
+{
+	return debounceDelay;
+}
+
+/**
+ * Get polling delay
+ * 
+ * @return  delay in miliseconds
+ */
+int Keypad::getPollingDelay(void)
+{
+	return pollingDelay;
 }
 
 /**
@@ -92,7 +143,7 @@ struct key Keypad::getKey(void)
 			{
 				if (! digitalRead(columnPin[j]))
 				{
-					delay(200);
+					delay(debounceDelay);
 					k.row = i;
 					k.column = j;
 
@@ -103,7 +154,7 @@ struct key Keypad::getKey(void)
 			pinMode(rowPin[i], INPUT);
 			pullUpDnControl(rowPin[i], PUD_OFF);
 
-			delay(20);
+			delay(pollingDelay);
 		}
 	}
 }
@@ -129,4 +180,7 @@ void Keypad::printDetails(void)
 		std::cout << columnPin[i] << " ";
 	}
 	std::cout << std::endl;
+
+	std::cout << "Debounce delay:\t" << debounceDelay << std::endl;
+	std::cout << "Polling delay:\t" << pollingDelay << std::endl;
 }

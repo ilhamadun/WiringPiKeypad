@@ -42,11 +42,18 @@ protected:
 	int columnSize;
 	int *rowPin;
 	int *columnPin;
+	int debounceDelay;
+	int pollingDelay;
 
 public:
 	Keypad(int _rowSize, int _columnSize);
+	Keypad(int _rowSize, int _columnSize, int debounceDelay, int pollingDelay);
 	void setRowPin(int *row);
 	void setColumnPin(int *column);
+	void setDebounceDelay(int delay);
+	void setPollingDelay(int delay);
+	int getDebounceDelay(void);
+	int getPollingDelay(void);
 	struct key getKey(void);
 	void printDetails(void);
 };
