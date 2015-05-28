@@ -28,7 +28,6 @@
 
 #include <iostream>
 #include <wiringPi.h>
-#include <thread>
 
 struct key
 {
