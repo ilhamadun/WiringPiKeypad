@@ -47,6 +47,51 @@ void Keypad::setColumnPin(int *column)
 	}
 }
 
+void Keypad::begin(void)
+{
+	for (int i = 0; i < columnSize; i++)
+	{
+		pinMode(columnPin[i], INPUT);
+		pullUpDnControl(columnPin[i], PUD_UP);
+	}
+
+	for (int i = 0; i < rowSize; i++)
+	{
+		pinMode(rowPin[i], INPUT);
+		pullUpDnControl(rowPin[i], PUD_OFF);
+	}
+
+	std::thread t(&Keypad::polling, this);
+
+	t.join();
+}
+
+void Keypad::polling(void)
+{
+	while (1)
+	{
+		for (int i = 0; i < rowSize; i++)
+		{
+			pinMode(rowPin[i], OUTPUT);
+			digitalWrite(rowPin[i], LOW);
+
+			for (int j = 0; j < columnSize; j++)
+			{
+				if (! digitalRead(columnPin[j]))
+				{
+					delay(200);
+					std::cout << "Row: " << i << " Column: " << j << std::endl;
+				}
+			}
+
+			pinMode(rowPin[i], INPUT);
+			pullUpDnControl(rowPin[i], PUD_OFF);
+
+			delay(20);
+		}
+	}
+}
+
 void Keypad::printDetails(void)
 {
 	std::cout << "Row size:\t" << rowSize << std::endl;
