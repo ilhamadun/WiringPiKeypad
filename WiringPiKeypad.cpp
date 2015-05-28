@@ -23,7 +23,7 @@
  * 
  */
 
-#include "keypad.h"
+#include "WiringPiKeypad.h"
 
 Keypad::Keypad(int _rowSize, int _columnSize): rowSize(_rowSize), columnSize(_columnSize)
 {
