@@ -160,6 +160,36 @@ struct key WiringPiKeypad::getKey(void)
 }
 
 /**
+ * Check input value
+ * 
+ * @param  row    	row value to check
+ * @param  column 	column value to check
+ */
+bool WiringPiKeypad::inputIs(int row, int column)
+{
+	return inputIs(getKey(), row, column);
+}
+
+/**
+ * Check input value
+ *
+ * @param  key 		keypress
+ * @param  row    	row value to check
+ * @param  column 	column value to check
+ */
+bool WiringPiKeypad::inputIs(struct key keypress, int row, int column)
+{
+	if (keypress.row == row && keypress.column == column)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/**
  * Print setup details
  */
 void WiringPiKeypad::printDetails(void)

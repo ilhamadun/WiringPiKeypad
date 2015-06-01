@@ -55,6 +55,8 @@ public:
 	int getDebounceDelay(void);
 	int getPollingDelay(void);
 	struct key getKey(void);
+	bool inputIs(int row, int column);
+	bool inputIs(struct key keypress, int row, int column);
 	void printDetails(void);
 };
 
