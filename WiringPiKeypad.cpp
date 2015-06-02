@@ -76,7 +76,7 @@ void WiringPiKeypad::setColumnPin(int *column)
  * 
  * @param matrix 	keypad matrix
  */
-void WiringPiKeypad::setMatrix(std::vector<std::vector<unsigned char>> m)
+void WiringPiKeypad::setMatrix(std::vector<std::vector<char>> m)
 {
 	matrix = m;
 }
@@ -174,13 +174,11 @@ struct key WiringPiKeypad::getRawKey(void)
  * 
  * @return  pressed key
  */
-unsigned char WiringPiKeypad::getKey(void)
+char WiringPiKeypad::getKey(void)
 {
 	struct key k = getRawKey();
 
-	unsigned char pressed = matrix[k.row][k.column];
-
-	return pressed;
+	return matrix[k.row][k.column];;
 }
 
 /**
