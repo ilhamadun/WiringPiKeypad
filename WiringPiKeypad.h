@@ -27,6 +27,7 @@
 #define _KEYPAD_H_
 
 #include <iostream>
+#include <vector>
 #include <wiringPi.h>
 
 struct key
@@ -42,6 +43,7 @@ protected:
 	int columnSize;
 	int *rowPin;
 	int *columnPin;
+	std::vector<std::vector<unsigned char>> matrix;
 	int debounceDelay;
 	int pollingDelay;
 
@@ -50,11 +52,13 @@ public:
 	WiringPiKeypad(int _rowSize, int _columnSize, int debounceDelay, int pollingDelay);
 	void setRowPin(int *row);
 	void setColumnPin(int *column);
+	void setMatrix(std::vector<std::vector<unsigned char>> m);
 	void setDebounceDelay(int delay);
 	void setPollingDelay(int delay);
 	int getDebounceDelay(void);
 	int getPollingDelay(void);
-	struct key getKey(void);
+	struct key getRawKey(void);
+	unsigned char getKey(void);
 	bool inputIs(int row, int column);
 	bool inputIs(struct key keypress, int row, int column);
 	void printDetails(void);

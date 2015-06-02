@@ -72,6 +72,16 @@ void WiringPiKeypad::setColumnPin(int *column)
 }
 
 /**
+ * Set keypad matrix
+ * 
+ * @param matrix 	keypad matrix
+ */
+void WiringPiKeypad::setMatrix(std::vector<std::vector<unsigned char>> m)
+{
+	matrix = m;
+}
+
+/**
  * Set debounce delay
  * 
  * @param delay 	delay in miliseconds
@@ -112,11 +122,11 @@ int WiringPiKeypad::getPollingDelay(void)
 }
 
 /**
- * Listen to keypress
+ * Listen to keypress and return raw key data
  * 
  * @return  key structure
  */
-struct key WiringPiKeypad::getKey(void)
+struct key WiringPiKeypad::getRawKey(void)
 {
 	struct key k;
 
@@ -160,6 +170,20 @@ struct key WiringPiKeypad::getKey(void)
 }
 
 /**
+ * Get keypress and return key data from matrix
+ * 
+ * @return  pressed key
+ */
+unsigned char WiringPiKeypad::getKey(void)
+{
+	struct key k = getRawKey();
+
+	unsigned char pressed = matrix[k.row][k.column];
+
+	return pressed;
+}
+
+/**
  * Check input value
  * 
  * @param  row    	row value to check
@@ -167,7 +191,7 @@ struct key WiringPiKeypad::getKey(void)
  */
 bool WiringPiKeypad::inputIs(int row, int column)
 {
-	return inputIs(getKey(), row, column);
+	return inputIs(getRawKey(), row, column);
 }
 
 /**
